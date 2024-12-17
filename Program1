@@ -1,0 +1,70 @@
+# Simple Student Database Program
+# This program allows you to store and edit student information. 
+# It's designed to be simple but functional. A team member could easily improve or expand it later!
+
+# In-memory student database (this could be replaced with a file-based or actual database later)
+students_db = {
+    1: {'First Name': 'Christine', 'Last Name': 'Gao', 'Age': 18, 'Major': 'Computer Science', 'Email': 'N/A', 'Enrollment Year': 2024},
+    2: {'First Name': 'Tony', 'Last Name': 'Liang', 'Age': 19, 'Major': 'Mathematics', 'Email': 'N/A', 'Enrollment Year': 2023},
+    3: {'First Name': 'Jack', 'Last Name': 'Smith', 'Age': 20, 'Major': 'Physics', 'Email': 'N/A', 'Enrollment Year': 2022},
+    4: {'First Name': 'Matthew', 'Last Name': 'Brown', 'Age': 21, 'Major': 'Engineering', 'Email': 'N/A', 'Enrollment Year': 2021},
+}
+
+# Function to display all student records. This gives the user a clear overview of the database.
+def display_students():
+    print("\n----- Current Student Records -----")
+    if not students_db:
+        print("No records found.")
+    for student_id, details in students_db.items():
+        print(f"\nStudent ID: {student_id}")
+        for key, value in details.items():
+            print(f"  {key}: {value}")
+    print("\n-------------------------------\n")
+
+# Function to edit a student's information. Allows users to change any field.
+# This could be further improved by adding validation for the input (e.g., checking if an email is valid).
+def edit_student(student_id):
+    if student_id in students_db:
+        print(f"\nEditing Record for Student ID {student_id}:")
+        
+        # Loop through each field of the student record and ask if the user wants to update it
+        for key, value in students_db[student_id].items():
+            new_value = input(f"Enter new {key} (current: {value}): ")
+            
+            # Only update if the user provides a new value
+            if new_value:
+                students_db[student_id][key] = new_value
+        
+        print("\nRecord updated successfully!")
+    else:
+        print("\nSorry, Student ID not found. Please try again.")
+
+# Main function that keeps the program running until the user decides to exit.
+def main():
+    while True:
+        print("\nWelcome to the Student Database!")
+        print("1. Display Student Records")
+        print("2. Edit a Student Record")
+        print("3. Exit")
+        
+        # Get the user's choice
+        choice = input("Please select an option (1-3): ")
+        
+        # Handle user input
+        if choice == '1':
+            display_students()
+        elif choice == '2':
+            try:
+                student_id = int(input("Enter the Student ID to edit: "))
+                edit_student(student_id)
+            except ValueError:
+                print("Please enter a valid numeric Student ID.")
+        elif choice == '3':
+            print("Exiting the program. Goodbye!")
+            break  # Exit the program
+        else:
+            print("Invalid choice, please try again.")
+
+# Entry point of the program. This will run when the script is executed.
+if __name__ == "__main__":
+    main()
